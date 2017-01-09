@@ -1,3 +1,5 @@
+#! /usr/bin/python3
+
 from cgi import parse_qs, escape
 
 def myapp(environ, start_response):
