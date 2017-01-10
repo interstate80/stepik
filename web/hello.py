@@ -1,15 +1,16 @@
-#! /usr/bin/python3
+#! /usr/bin/python
 
-# from cgi import parse_qs, escape
-from urllib.parse import parse_qs
+#from cgi import parse_qs
+import urlparse
 
-def myapp(environ, start_response):
+def myapp(env, start_response):
     data = ''
-    p_data = parse_qs(environ['QUERY_STRING'])
-    for i in p_data:
-        data += str(i) + "=" + str(p_data[i]) + "\n"
-    
     status = '200 OK'
-    response_headers = [('Content-type', 'text/plain'), ('Content-Length', str(len(data)))]
+    response_headers = [('Content-type', 'text/plain')]
+    p_data = urlparse.parse_qs(env['QUERY_STRING'])
+    for i, v in p_data.items():
+        v = str(v).replace('\']','')
+        v = v.replace('[\'','')
+        data += '%s=%s\n' % (i,v)
     start_response(status, response_headers)
     return [ data ]
