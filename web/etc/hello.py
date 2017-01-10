@@ -1,2 +1,3 @@
+pythonpath = '/home/box/web/'
 bind = '127.0.0.1:8080'
-workers = 3
+workers = 4
